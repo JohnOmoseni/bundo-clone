@@ -30,7 +30,7 @@ function Explore() {
 					googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}
 					libraries={["places"]}
 					loadingElement={
-						<div className="relative loader-container">
+						<div className="loader-container">
 							<FallbackLoader loading />
 						</div>
 					}

@@ -3,8 +3,14 @@ import AmazingDeals from "./Deals";
 import FAQ from "./FAQs";
 import FeaturedItems, { BiggestSales, ExploreVendors } from "./FeaturedItems";
 import GlobalSearch from "@/components/reuseables/GlobalSearch";
+import { bundoApi } from "@/server/actions";
 
-function Home() {
+async function Home() {
+	// const data = await bundoApi.getAllVendors();
+	const data = await bundoApi.getAllBusinessLocations();
+
+	console.log("DATA", data);
+
 	return (
 		<main className="mx-auto w-full max-w-[1200px]">
 			<div className="flex-column gap-3 sm:hidden">

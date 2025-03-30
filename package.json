@@ -40,13 +40,14 @@
     "react-spinners": "^0.15.0",
     "redux-persist": "^6.0.0",
     "sonner": "^2.0.2",
+    "svgo": "2",
     "tailwind-merge": "^3.0.2",
     "tw-animate-css": "^1.2.5",
     "use-places-autocomplete": "^4.0.1",
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "@svgr/webpack": "^8.1.0",
+    "@svgr/webpack": "6",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

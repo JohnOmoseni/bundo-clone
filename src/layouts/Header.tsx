@@ -22,7 +22,7 @@ function Header() {
 					<CustomIcon
 						icon={Menu}
 						action={() => dispatch(setOpenMenu(true))}
-						className="grid lg:!hidden text-foreground-variant size-8"
+						className="grid lg:!hidden text-foreground-variant size-7"
 					/>
 
 					<Link href="/" className="-mt-0.5">

@@ -70,7 +70,7 @@
 	@apply row-flex leading-[0.9rem] text-foreground-variant font-semibold bg-secondary-100 line-clamp-1 w-max cursor-pointer gap-1 rounded-full px-5 py-1.5 text-xs tracking-tight capitalize transition focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-1;
 }
 @utility loader-container {
-	@apply w-full h-[250px] grid place-items-center relative;
+	@apply w-full h-[250px] grid place-items-center bg-background z-10 relative;
 }
 @utility loader-full {
 	@apply w-full h-[calc(100vh-70px)] grid place-items-center relative;
