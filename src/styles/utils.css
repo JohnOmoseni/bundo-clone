@@ -1,0 +1,91 @@
+/* SKELETON LOADER */
+.skeleton {
+	background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+	background-size: 200% 100%;
+	animation: shimmer 2s infinite linear;
+	will-change: background-position;
+}
+@keyframes shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+@media (prefers-reduced-motion) {
+	.skeleton {
+		animation-duration: 15s;
+	}
+}
+/* STROKES - SVGS */
+.stroke-grey * {
+	stroke: var(--grey);
+}
+
+.stroke-variant * {
+	stroke: var(--foreground);
+}
+
+/* Remove scrollbar */
+/* Universal selector to hide scrollbar */
+.remove-scrollbar {
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE and Edge */
+}
+
+.remove-scrollbar::-webkit-scrollbar {
+	width: 0px;
+	height: 0px;
+	display: none; /* Safari and Chrome */
+}
+
+.remove-scrollbar::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.remove-scrollbar::-webkit-scrollbar-thumb {
+	background: transparent;
+	border-radius: 0px;
+}
+
+/* SCROLLBAR */
+.scrollbar-thin {
+	scrollbar-color: initial initial;
+	scrollbar-color: var(--scrollbar-thumb, initial)
+		var(--scrollbar-track, initial);
+	scrollbar-width: thin;
+}
+
+/* POPOVER CONTENT */
+[data-radix-popper-content-wrapper]:has(.popover) {
+	filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.01)) !important;
+	box-shadow: 1px 1px 100px 10vh rgba(0, 0, 0, 0.01) !important;
+}
+[data-radix-popper-content-wrapper]:has(.round-dropdown) {
+	left: -1.6rem !important;
+}
+
+/* @media (min-width: 1110px) {
+	[data-radix-popper-content-wrapper]:has(.side-bar) {
+		left: 3.5rem !important;
+		top: -1rem !important;
+	}
+}  */
+
+/* MUI OVERRIDES */
+/* SELECT */
+.css-13cymwt-control {
+	height: 2.5rem !important;
+	border-radius: calc(var(--radius) - 2px) !important;
+	border-color: var(--input) !important;
+}
+.css-1jqq78o-placeholder {
+	color: var(--foreground-100) !important;
+}
+.css-1u9des2-indicatorSeparator {
+	background-color: transparent !important;
+}
+.css-1xc3v61-indicatorContainer svg {
+	color: var(--foreground-100) !important;
+}
