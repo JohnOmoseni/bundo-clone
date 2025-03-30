@@ -7,9 +7,9 @@ import { bundoApi } from "@/server/actions";
 
 async function Home() {
 	// const data = await bundoApi.getAllVendors();
-	const data = await bundoApi.getAllBusinessLocations();
+	// const data = await bundoApi.getAllBusinessLocations();
 
-	console.log("DATA", data);
+	// console.log("DATA", data);
 
 	return (
 		<main className="mx-auto w-full max-w-[1200px]">

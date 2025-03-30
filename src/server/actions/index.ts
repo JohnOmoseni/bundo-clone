@@ -1,3 +1,5 @@
+"use server";
+
 import { handleApiError } from "@/lib/utils";
 import { AxiosResponse } from "axios";
 import axiosInstance from "../axios";
