@@ -181,7 +181,7 @@ export const items = [
 ];
 export const amazingDeals = [
 	{
-		name: "Beauty&Mkakeup",
+		name: "Beauty & Makeup",
 		avatar: images.deals_image_1,
 	},
 	{

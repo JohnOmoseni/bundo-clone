@@ -67,9 +67,7 @@ const Marquee = ({ containerStyles, list, renderItem }: MarqueeProps) => {
 	return (
 		<div
 			ref={containerRef}
-			className={cn(
-				"scroller relative z-20 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-			)}
+			className={cn("animate-marquee relative z-20 w-full")}
 		>
 			<ul
 				ref={scrollerRef}

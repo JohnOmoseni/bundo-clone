@@ -198,7 +198,7 @@
 	--radius-xl: calc(var(--radius) + 4px);
 
 	--animate-fade-in-scale: fade-in-scale 0.3s ease-out;
-	--scroller: scroll 20s forwards linear infinite;
+	--animate-marquee: scroll 20s forwards linear infinite;
 
 	@keyframes fade-in-scale {
 		0% {
