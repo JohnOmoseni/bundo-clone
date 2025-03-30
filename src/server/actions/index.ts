@@ -13,16 +13,16 @@ type CreateVendorLocationParasms = {
 	businessProfilePicture: string;
 };
 
-const getAllVendors = async ({
+export const getAllVendors = async ({
 	page = 1,
 	limit = 10,
 	lat = -34.397,
 	lng = 150.644,
 }: {
-	page: number;
-	limit: number;
-	lat: number;
-	lng: number;
+	page?: number;
+	limit?: number;
+	lat?: number;
+	lng?: number;
 }): Promise<AxiosResponse["data"]> => {
 	try {
 		const response = await axiosInstance.get(
@@ -35,7 +35,9 @@ const getAllVendors = async ({
 	}
 };
 
-const getAllBusinessLocations = async (): Promise<AxiosResponse["data"]> => {
+export const getAllBusinessLocations = async (): Promise<
+	AxiosResponse["data"]
+> => {
 	try {
 		const response = await axiosInstance.get("/Stage/businessLocations");
 
@@ -45,7 +47,7 @@ const getAllBusinessLocations = async (): Promise<AxiosResponse["data"]> => {
 	}
 };
 
-const createVendorLocation = async (
+export const createVendorLocation = async (
 	payload: CreateVendorLocationParasms
 ): Promise<AxiosResponse["data"]> => {
 	try {
@@ -55,10 +57,4 @@ const createVendorLocation = async (
 	} catch (error) {
 		handleApiError(error);
 	}
-};
-
-export const bundoApi = {
-	getAllVendors,
-	getAllBusinessLocations,
-	createVendorLocation,
 };

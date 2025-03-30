@@ -12,6 +12,7 @@ import {
 	RatingOutlineStar,
 	TagIcon,
 } from "@/constants/icons";
+import images from "@/constants/images";
 import { cn, formatPrice, showToast, truncateString } from "@/lib/utils";
 import { toggleWishlistItem } from "@/redux/features/wishlistSlice";
 import { useAppDispatch, useAppSelector } from "@/types";
@@ -28,13 +29,13 @@ function Card({ item, type, cardContainerStyles }: CardProps) {
 	const dispatch = useAppDispatch();
 
 	const wishlist = useAppSelector((state: any) => state.wishlist.items);
-	const isFavorited = wishlist.includes(item.id);
+	const isFavorited = wishlist.includes(item._id);
 
 	const handleWishlistClick = async () => {
 		const action = isFavorited ? "remove" : "add";
 
 		try {
-			dispatch(toggleWishlistItem(item.id));
+			dispatch(toggleWishlistItem(item._id));
 
 			let message = `Item ${
 				action === "add" ? "added to" : "removed from"
@@ -71,7 +72,7 @@ function Card({ item, type, cardContainerStyles }: CardProps) {
 						className="flex relative h-[220px] w-full flex-grow flex-shrink-0 bg-center overflow-hidden rounded bg-card "
 					>
 						<Image
-							src={item?.image}
+							src={item?.business_profile_picture || images.item_1}
 							alt=""
 							width={1000}
 							height={1000}
@@ -94,7 +95,7 @@ function Card({ item, type, cardContainerStyles }: CardProps) {
 					</Link>
 
 					<div className="flex-column w-full gap-1 px-1 pt-4 pb-2">
-						<Link href={`/listings}/${item.id}`} className="inline-flex">
+						<Link href={`#`} className="inline-flex">
 							<h3 className="line-clamp-2 font-semibold leading-6 text-xl tracking-wide">
 								{item?.name}
 							</h3>
@@ -121,36 +122,34 @@ function Card({ item, type, cardContainerStyles }: CardProps) {
 						<div className="ml-0.5 row-flex-start gap-3 mt-2">
 							{Array.from({ length: 5 }).map((_, idx) => {
 								const Icon =
-									item?.rating > idx ? RatingFilledStar : RatingOutlineStar;
+									item?.total_ratings > idx
+										? RatingFilledStar
+										: RatingOutlineStar;
 
 								return (
 									<Icon
 										key={idx}
 										className={cn(
 											"size-6 transition",
-											item?.rating > idx
+											item?.total_ratings > idx
 												? "fill-foreground-variant"
 												: "stroke-foreground-variant"
 										)}
 									/>
 								);
 							})}
-							{item?.noOfRatings && (
-								<span className="text-sm self-end font-semibold leading-5">
-									({item.noOfRatings})
-								</span>
-							)}
+							<span className="text-sm self-end font-semibold leading-5">
+								({item.total_reviews})
+							</span>
 						</div>
 
 						<div className="row-flex-btwn gap-4 mt-3.5">
 							<p className="text-2xl md:text-3xl font-semibold ml-1 mt-1 leading-5">
-								{item?.currency && (
-									<span className="text-lg">{item?.currency}</span>
-								)}
+								<span className="text-lg">₦</span>
 								{formatPrice(item?.actual_price)}
 							</p>
 
-							<div className="ml-auto row-flex gap-2.5">
+							{/* <div className="ml-auto row-flex gap-2.5">
 								<span className="font-semibold text-sm text-grey line-through">
 									₦2,500
 								</span>
@@ -166,7 +165,7 @@ function Card({ item, type, cardContainerStyles }: CardProps) {
 									}
 									containerStyles=""
 								/>
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</>
@@ -188,11 +187,11 @@ function VendorCard({
 	return (
 		<>
 			<Link
-				href={`/listings/${item.id}`}
+				href={`#`}
 				className="flex relative size-[75px] flex-shrink-0 bg-center overflow-hidden rounded-full bg-card clip-circle"
 			>
 				<Image
-					src={item?.image}
+					src={item?.business_profile_picture}
 					alt=""
 					width={1000}
 					height={1000}
@@ -216,7 +215,7 @@ function VendorCard({
 
 			<div className="flex-column w-full gap-1 px-1 py-4 pb-2">
 				<div className="flex-column gap-1">
-					<Link href={`/listings}/${item.id}`} className="inline-flex">
+					<Link href={`#`} className="inline-flex">
 						<h3 className="line-clamp-2 leading-6 text-xl tracking-wide">
 							{item?.name}
 						</h3>
@@ -224,7 +223,11 @@ function VendorCard({
 
 					<div className="row-flex-start gap-1.5">
 						<CustomIcon icon={LocationMarker} className="" />
-						<span className="font-light text-xs">5 minutes away from you</span>
+						<span className="font-light text-xs">
+							{item?.dist?.calculated
+								? `${item?.dist?.calculated || 0} minutes away from you`
+								: "5 minutes away from you"}
+						</span>
 					</div>
 				</div>
 
@@ -244,8 +247,8 @@ function VendorCard({
 							containerClassName="size-7"
 						/>
 
-						<span className="text-base leading-5 md:whitespace-nowrap ">
-							{item?.location || "Ikeja, Lagos"}
+						<span className="text-base leading-5 md:whitespace-nowrap line-clamp-1 w-full">
+							{item?.address || "Ikeja, Lagos"}
 						</span>
 					</div>
 
@@ -260,7 +263,7 @@ function VendorCard({
 						/>
 
 						{Array.isArray(item.categories) && item.categories?.length > 0 ? (
-							<p className=" line-clamp-2 flex-shrink-0 w-full pr-1">
+							<p className="line-clamp-2 w-full pr-1">
 								{item.categories?.map((desc: any, idx: number) => (
 									<Link
 										href={"#"}
@@ -285,14 +288,16 @@ function VendorCard({
 					<div className="ml-0.5 row-flex-start gap-3 mt-3.5">
 						{Array.from({ length: 5 }).map((_, idx) => {
 							const Icon =
-								item?.rating > idx ? RatingFilledStar : RatingOutlineStar;
+								item?.total_ratings > idx
+									? RatingFilledStar
+									: RatingOutlineStar;
 
 							return (
 								<Icon
 									key={idx}
 									className={cn(
 										"size-6 transition",
-										item?.rating > idx
+										item?.total_ratings > idx
 											? "fill-foreground-variant"
 											: "stroke-foreground-variant"
 									)}

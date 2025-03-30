@@ -8,6 +8,7 @@ import {
 	OverlayViewF,
 } from "@react-google-maps/api";
 import { useLocation } from "@/context/LocationContext";
+import Markers from "./Markers";
 
 const containerStyle = {
 	width: "100%",
@@ -24,7 +25,11 @@ const options = {
 	mapId: "",
 };
 
-export default function GoogleMapView() {
+export default function GoogleMapView({
+	businessLocations,
+}: {
+	businessLocations: any;
+}) {
 	// const { isLoaded } = useJsApiLoader({
 	// 	googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY || "YOUR_API_KEY",
 	// });
@@ -63,7 +68,6 @@ export default function GoogleMapView() {
 			mapContainerStyle={containerStyle}
 			center={center}
 			zoom={12}
-			// onLoad={onLoad}
 			onLoad={(map) => setMap(map)}
 			onUnmount={onUnmount}
 			options={options}
@@ -91,6 +95,10 @@ export default function GoogleMapView() {
 					</OverlayViewF>
 				</MarkerF>
 			) : null}
+
+			{businessLocations?.map((location: any, idx: number) => (
+				<Markers key={idx} businessLocation={location} />
+			))}
 		</GoogleMap>
 	);
 	// isLoaded ? (

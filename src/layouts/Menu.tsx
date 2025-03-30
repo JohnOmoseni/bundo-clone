@@ -10,6 +10,7 @@ import {
 	Logo,
 	KeyboardArrowLeft,
 	KeyboardArrowRight,
+	KeyboardArrowDown,
 } from "@/constants/icons";
 
 import Link from "next/link";
@@ -22,13 +23,8 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-	AlertDialogDescription,
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogHeader,
-	AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { animateFn, animateMenu, slideinVariant } from "@/lib/animate";
+import { motion } from "framer-motion";
 
 function Menu() {
 	const dispatch = useAppDispatch();
@@ -47,39 +43,39 @@ function Menu() {
 	}, [openMenu]);
 
 	return (
-		<AlertDialog
-			open={openMenu}
-			onOpenChange={() => dispatch(setOpenMenu(false))}
+		<motion.div
+			style={{ zIndex: 9999 }}
+			className="fixed inset-0 block h-dvh w-full overflow-hidden bg-black/30 backdrop-blur-sm md:hidden"
+			{...animateFn(animateMenu)}
+			onClick={() => dispatch(setOpenMenu(false))}
 		>
-			<AlertDialogContent
+			<motion.div
+				{...animateFn(slideinVariant)}
+				className="flex-column remove-scrollbar absolute inset-0 h-svh w-dvw bg-background overflow-x-clip overflow-y-auto py-5 px-4"
+				onClick={(e) => e.stopPropagation()}
 				style={{ zIndex: 999 }}
-				className="block remove-scrollbar h-svh rounded-none w-dvw !max-w-[100%] overflow-x-clip overflow-y-auto py-5 px-4 md:px-5 shadow-lg border-0"
 			>
-				<AlertDialogHeader>
-					<AlertDialogTitle className="">
-						<div className="row-flex-btwn gap-6">
-							<Link href="/" className="">
-								<Logo className="w-full h-7" />
-							</Link>
+				<div className="row-flex-btwn gap-6">
+					<Link href="/" className="">
+						<Logo className="w-full h-7" />
+					</Link>
 
-							<div className="row-flex-btwn gap-3.5">
-								<div className="relative cursor-pointer">
-									<CustomIcon icon={CartIcon} className="size-6" />
-									<p className="size-[18px] grid place-items-center text-[10px] rounded-full bg-red-500 text-white clip-circle absolute -top-1.5 -right-1.5 leading-none">
-										2
-									</p>
-								</div>
-
-								<CustomIcon
-									action={() => dispatch(setOpenMenu(false))}
-									icon={Close}
-									iconColor={"default"}
-									className="size-7"
-								/>
-							</div>
+					<div className="row-flex-btwn gap-3.5">
+						<div className="relative cursor-pointer">
+							<CustomIcon icon={CartIcon} className="size-6" />
+							<p className="size-[18px] grid place-items-center text-[10px] rounded-full bg-red-500 text-white clip-circle absolute -top-1.5 -right-1.5 leading-none">
+								2
+							</p>
 						</div>
-					</AlertDialogTitle>
-				</AlertDialogHeader>
+
+						<CustomIcon
+							action={() => dispatch(setOpenMenu(false))}
+							icon={Close}
+							iconColor={"default"}
+							className="size-7"
+						/>
+					</div>
+				</div>
 
 				<div className="mt-12 flex-column gap-8">
 					<div className="w-full flex-column gap-3 mx-auto">
@@ -120,7 +116,7 @@ function Menu() {
 											className="font-medium text-base break-words text-left sm:w-full"
 											iconComponent={
 												<div className="icon-div shrink-0 bg-transparent rounded-full">
-													<KeyboardArrowLeft className="size-5 transition-pointer-events-none transition-transform duration-200" />
+													<KeyboardArrowDown className="size-5 transition-pointer-events-none transition-transform duration-200" />
 													<KeyboardArrowRight className="size-5 transition-pointer-events-none transition-transform duration-200" />
 												</div>
 											}
@@ -152,8 +148,8 @@ function Menu() {
 						</ul>
 					</nav>
 				</div>
-			</AlertDialogContent>
-		</AlertDialog>
+			</motion.div>
+		</motion.div>
 	);
 }
 

@@ -47,7 +47,7 @@ export const slideinVariant = {
 		x: 0,
 		transition: {
 			delay: 0.1,
-			duration: 0.8,
+			duration: 0.5,
 			type: "spring",
 			mass: 0.3,
 			ease: "easeIn",
@@ -58,7 +58,7 @@ export const slideinVariant = {
 		x: "100vw",
 		opacity: 0,
 		transition: {
-			duration: 1,
+			duration: 0.6,
 			ease: "easeOut",
 		},
 	},

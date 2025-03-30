@@ -3,13 +3,13 @@ import AmazingDeals from "./Deals";
 import FAQ from "./FAQs";
 import FeaturedItems, { BiggestSales, ExploreVendors } from "./FeaturedItems";
 import GlobalSearch from "@/components/reuseables/GlobalSearch";
-import { bundoApi } from "@/server/actions";
+import { getAllBusinessLocations, getAllVendors } from "@/server/actions";
+import { Suspense } from "react";
 
 async function Home() {
-	// const data = await bundoApi.getAllVendors();
-	// const data = await bundoApi.getAllBusinessLocations();
-
-	// console.log("DATA", data);
+	const products = await getAllVendors({});
+	const data = await getAllBusinessLocations();
+	const featuredProducts = products?.data || [];
 
 	return (
 		<main className="mx-auto w-full max-w-[1200px]">
@@ -27,12 +27,16 @@ async function Home() {
 
 			<SectionWrapper containerStyles="!sm:pt-[3%]">
 				<div className="flex-column gap-12">
-					<FeaturedItems />
+					<Suspense
+						fallback={<div className="loader-container">Loading...</div>}
+					>
+						<FeaturedItems featuredProducts={featuredProducts} />
+					</Suspense>
 					<BiggestSales />
 					<ExploreVendors />
 				</div>
 			</SectionWrapper>
-			<SectionWrapper containerStyles="">
+			<SectionWrapper containerStyles="min-h-auto mb-9 md:mb-12">
 				<AmazingDeals />
 			</SectionWrapper>
 			<SectionWrapper containerStyles="relative bg-[#F1E9DB]">

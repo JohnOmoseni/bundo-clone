@@ -2,6 +2,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+	images: {
+		domains: ["tse4.mm.bing.net", "maps.googleapis.com"],
+	},
 	experimental: {
 		turbo: {
 			rules: {

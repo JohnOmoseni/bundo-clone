@@ -25,7 +25,7 @@ const Social = ({
 		<a
 			href={href}
 			title={tag}
-			className="group row-flex-start gap-2 transition hover:scale-95"
+			className="group w-max row-flex-start gap-2 transition hover:scale-95"
 		>
 			<Icon className="text-foreground-variant size-5" />
 			<p className="font-medium text-sm text-foreground-variant-100 underline">
@@ -127,7 +127,7 @@ const FooterMobile = () => {
 					alt=""
 					width={1000}
 					height={1000}
-					className="size-fit mx-auto object-cover"
+					className="size-fill mx-auto object-cover"
 				/>
 			</div>
 		</div>
@@ -138,7 +138,7 @@ const FooterLarge = () => {
 	const pathname = usePathname();
 
 	return (
-		<div className="flex-column gap-10 max-sm:!hidden">
+		<div className="flex-column gap-10 max-md:!hidden">
 			<div className="flex-column w-full gap-3">
 				<Link href="/" className="group relative transition w-max">
 					<Logo className="size-fit object-contain" />
@@ -149,12 +149,12 @@ const FooterLarge = () => {
 			</div>
 
 			<div className="flex flex-row justify-between gap-10">
-				<div className="shrink-0 w-fit h-[450px]">
+				<div className="shrink-0 xl:flex-2 max-w-[560px] h-[450px]">
 					<Image
 						src={images.footer_image}
 						alt=""
-						width={1000}
-						height={1000}
+						width={600}
+						height={600}
 						className="size-full object-cover"
 					/>
 				</div>

@@ -18,7 +18,10 @@ export default function ErrorBoundary({
 		}
 	}, [error]);
 	return (
-		<div className="fixed left-0 top-0 grid h-dvh w-full place-items-center bg-background">
+		<div
+			style={{ zIndex: "9999" }}
+			className="fixed inset-0 grid h-dvh w-full place-items-center bg-background"
+		>
 			<div className="group absolute left-3 top-3 transition hover:scale-95 sm:left-5 sm:top-5">
 				<Image
 					src={images.logo}

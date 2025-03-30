@@ -12,7 +12,7 @@ const SectionWrapper = ({ children, containerStyles }: Props) => {
 	return (
 		<section
 			className={cn(
-				"w-full pt-6 pb-5 px-3.5 min-h-[60vh] sm:pt-[4%] lg:pt-[5%] sm:px-[4%]",
+				"w-full pt-6 pb-5 px-3.5 min-h-[50vh] sm:pt-[4%] lg:pt-[5%] sm:px-[4%]",
 				containerStyles
 			)}
 		>

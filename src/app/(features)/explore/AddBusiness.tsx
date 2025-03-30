@@ -7,27 +7,18 @@ import FormWrapper from "@/components/forms/FormWrapper";
 import CustomButton from "@/components/reuseables/CustomButton";
 import { Close, PlusIcon, SearchIcon } from "@/constants/icons";
 import { useFormik } from "formik";
-
-import {
-	AlertDialog,
-	AlertDialogContent,
-	AlertDialogHeader,
-	AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import CustomIcon from "@/components/reuseables/CustomIcon";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { CoordinatesType } from "@/context/LocationContext";
 import AddAddress from "./AddAddress";
+import { v4 as uuidv4 } from "uuid";
+import { createVendorLocation } from "@/server/actions";
+import { animateFn, slideinVariant } from "@/lib/animate";
+import { motion } from "framer-motion";
 
-const AddBusiness = ({
-	openModal,
-	closeModal,
-}: {
-	openModal: boolean;
-	closeModal: () => void;
-}) => {
+const AddBusiness = ({ closeModal }: { closeModal: () => void }) => {
 	const [showModalContent, setShowModalContent] = useState<"form" | "address">(
 		"form"
 	);
@@ -37,23 +28,25 @@ const AddBusiness = ({
 	// const { addressObject, setAddressObject } = useLocation();
 
 	return (
-		<AlertDialog open={openModal} onOpenChange={() => closeModal()}>
-			<AlertDialogContent
+		<motion.div
+			style={{ zIndex: 9999 }}
+			className="fixed inset-0 block h-dvh w-full overflow-hidden bg-black/30 backdrop-blur-sm md:hidden"
+			onClick={() => closeModal()}
+		>
+			<motion.div
+				{...animateFn(slideinVariant)}
+				className="flex-column remove-scrollbar absolute inset-0 h-svh w-dvw bg-background overflow-x-clip overflow-y-auto py-5 px-4"
+				onClick={(e) => e.stopPropagation()}
 				style={{ zIndex: 999 }}
-				className="block remove-scrollbar h-svh rounded-none w-dvw !max-w-[100%] overflow-x-clip overflow-y-auto p-0 border-0"
 			>
-				<AlertDialogHeader>
-					<AlertDialogTitle className="">
-						<div className="py-3 px-4 shadow-xs flex border-b border-border justify-end">
-							<CustomIcon
-								action={() => closeModal()}
-								icon={Close}
-								iconColor={"variant"}
-								className=""
-							/>
-						</div>
-					</AlertDialogTitle>
-				</AlertDialogHeader>
+				<div className="py-3 px-4 shadow-xs flex border-b border-border justify-end">
+					<CustomIcon
+						action={() => closeModal()}
+						icon={Close}
+						iconColor={"variant"}
+						className=""
+					/>
+				</div>
 
 				<div className="flex-column gap-4 py-6 px-4 md:px-5">
 					{showModalContent === "form" ? (
@@ -75,8 +68,8 @@ const AddBusiness = ({
 						/>
 					)}
 				</div>
-			</AlertDialogContent>
-		</AlertDialog>
+			</motion.div>
+		</motion.div>
 	);
 };
 
@@ -91,11 +84,28 @@ const AddNewBusinessForm = ({
 	setOpenAddressContent: any;
 	closeModal: () => void;
 }) => {
+	const [isLoading, setIsLoading] = useState(false);
 	// @ts-ignore
 	const onSubmit = async (values: any) => {
+		const data = {
+			id: uuidv4(),
+			lat: addressObject?.lat!,
+			long: addressObject?.lng!,
+			businessName: values.business_name,
+			businessProfilePicture: values.business_picture,
+			address: addressObject?.name!,
+		};
+
+		setIsLoading(true);
 		try {
+			const res = await createVendorLocation(data);
+
+			console.log("RES", res);
 			closeModal();
-		} catch (error: any) {}
+		} catch (error: any) {
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	const { values, errors, touched, handleBlur, handleSubmit, handleChange } =
@@ -116,6 +126,7 @@ const AddNewBusinessForm = ({
 			buttonLabel={"Save Business"}
 			btnStyles="bg-secondary-200"
 			onSubmit={handleSubmit}
+			isSubmitting={isLoading}
 		>
 			<CustomFormField
 				fieldType={FormFieldType.INPUT}

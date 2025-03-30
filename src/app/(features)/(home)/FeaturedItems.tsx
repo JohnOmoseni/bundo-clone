@@ -8,7 +8,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@/constants/icons";
 import Link from "next/link";
 import { useRef } from "react";
 
-function FeaturedItems() {
+function FeaturedItems({ featuredProducts }: { featuredProducts: any }) {
 	return (
 		<div className="flex-column gap-6">
 			<div className="row-flex-btwn gap-3">
@@ -22,7 +22,7 @@ function FeaturedItems() {
 				</Link>
 			</div>
 
-			<Collection data={items} collectionType="Categories" />
+			<Collection data={featuredProducts} collectionType="Categories" />
 		</div>
 	);
 }
@@ -63,30 +63,23 @@ export function BiggestSales() {
 			</div>
 
 			<div className="max-sm:mx-2 relative">
-				{/* <Collection
-					data={items}
-					collectionType="Categories"
-					hasDifferentContainerStyles
-					ref={sliderElementRef}
-					containerStyles="flex overflow-x-auto overflow-scroll gap-6 remove-scrollbar"
-					cardContainerStyles="flex-shrink-0 w-[300px] min-w-auto"
-				/> */}
-
-				<ul
-					ref={sliderElementRef}
-					className="flex overflow-x-auto overflow-scroll gap-6 remove-scrollbar"
-				>
-					{items.map((item, idx) => {
-						return (
-							<Card
-								item={item}
-								key={idx}
-								type={"vendors"}
-								cardContainerStyles="flex-shrink-0 w-[300px] min-w-auto"
-							/>
-						);
-					})}
-				</ul>
+				{items && items?.length > 0 ? (
+					<ul
+						ref={sliderElementRef}
+						className="flex overflow-x-auto overflow-y-hidden overflow-scroll gap-6 remove-scrollbar"
+					>
+						{items.map((item, idx) => {
+							return (
+								<Card
+									item={item}
+									key={idx}
+									type={"vendors"}
+									cardContainerStyles="flex-shrink-0 w-[280px] md:w-[300px] min-w-auto"
+								/>
+							);
+						})}
+					</ul>
+				) : null}
 			</div>
 		</div>
 	);
