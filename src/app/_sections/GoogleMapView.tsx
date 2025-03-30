@@ -52,7 +52,6 @@ export default function GoogleMapView({
 	}, [addressObject, userLocation]);
 
 	const onLoad = useCallback(function callback(map: any) {
-		// This is just an example of getting and using the map instance!!! don't just blindly copy!
 		const bounds = new window.google.maps.LatLngBounds(center);
 		map.fitBounds(bounds);
 
@@ -96,9 +95,11 @@ export default function GoogleMapView({
 				</MarkerF>
 			) : null}
 
-			{businessLocations?.map((location: any, idx: number) => (
-				<Markers key={idx} businessLocation={location} />
-			))}
+			{businessLocations && businessLocations?.length > 0
+				? businessLocations?.map((location: any) => (
+						<Markers key={location?.id} businessLocation={location} />
+				  ))
+				: null}
 		</GoogleMap>
 	);
 	// isLoaded ? (

@@ -9,8 +9,8 @@ export default function Markers({
 	businessLocation: any;
 }) {
 	const position = {
-		lat: businessLocation?.lat || 1,
-		lng: businessLocation?.lng || 1,
+		lat: businessLocation?.lat,
+		lng: businessLocation?.long,
 	};
 	return (
 		<MarkerF
@@ -28,7 +28,10 @@ export default function Markers({
 				position={position}
 				mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
 			>
-				<div className="row-flex p-1 bg-background rounded-full size-14 clip-circle"></div>
+				<div className="row-flex p-1 bg-background rounded-full size-14 clip-circle">
+					<p>{businessLocation?.businessName}</p>
+					<p>{businessLocation?.address}</p>
+				</div>
 			</OverlayViewF>
 		</MarkerF>
 	);
