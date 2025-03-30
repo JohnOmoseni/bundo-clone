@@ -10,9 +10,10 @@ import GoogleMapView from "@/app/_sections/GoogleMapView";
 
 function Explore({ data }: { data: any }) {
 	const [openModal, setOpenModal] = useState(false);
-	const [businessLocations, setBusinessLocations] = useState(data);
+	const [businessLocations, setBusinessLocations] = useState<any>([]);
 
 	useEffect(() => {
+		if (!data && data?.length === 0) return;
 		setBusinessLocations(data);
 	}, [data]);
 
