@@ -12,10 +12,10 @@ type CreateVendorLocationParasms = {
 };
 
 const getAllVendors = async ({
-	page,
-	limit,
-	lat,
-	lng,
+	page = 1,
+	limit = 10,
+	lat = -34.397,
+	lng = 150.644,
 }: {
 	page: number;
 	limit: number;
