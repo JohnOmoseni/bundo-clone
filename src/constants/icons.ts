@@ -37,6 +37,7 @@ import {
 import { FaLocationDot as LocationIcon } from "react-icons/fa6";
 import { HiOutlineLocationMarker as LocationOutlineIcon } from "react-icons/hi";
 import { TbTag as TagIcon } from "react-icons/tb";
+import { IoIosLink as LinkIcon } from "react-icons/io";
 
 import FooterLogo from "@/svgs/footer-logo.svg";
 import Logo from "@/svgs/bundo-logo.svg";
@@ -76,4 +77,5 @@ export {
 	LocationMarker,
 	CartIcon,
 	UserIcon,
+	LinkIcon,
 };

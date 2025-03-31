@@ -2,7 +2,7 @@ import FallbackLoader from "@/components/fallback/FallbackLoader";
 
 function Loading() {
 	return (
-		<div className="laoder-full relative">
+		<div className="laoder-full ">
 			<FallbackLoader loading={true} />
 		</div>
 	);

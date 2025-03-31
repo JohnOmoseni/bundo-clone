@@ -14,6 +14,7 @@ import item_3 from "@/images/item_1.png";
 import item_4 from "@/images/item_1.png";
 import item_5 from "@/images/item_1.png";
 import item_6 from "@/images/item_1.png";
+import location_image from "@/images/location-image.png";
 
 export default {
 	profile,
@@ -32,4 +33,5 @@ export default {
 	item_4,
 	item_5,
 	item_6,
+	location_image,
 };

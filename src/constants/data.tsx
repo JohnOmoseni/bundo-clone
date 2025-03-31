@@ -174,26 +174,32 @@ export const amazingDeals = [
 export const faqs = [
 	{
 		trigger: "What is Bundo?",
-		body1: "",
+		body1:
+			"Bundo is a retail & ecommerce technology company simplifying retail by bridging the gaps between small/medium business owners and regular customers. We are helping to further digitize retail and make it easier for everyday people to buy and sell beyond the challenges of location, visibility, accessibility and resources",
 	},
 	{
 		trigger: "What kind of businesses can use Bundo?",
-		body1: "",
+		body1:
+			"Bundo is a retail & ecommerce technology company simplifying retail by bridging the gaps between small/medium business owners and regular customers. We are helping to further digitize retail and make it easier for everyday people to buy and sell beyond the challenges of location, visibility, accessibility and resources",
 	},
 	{
 		trigger: "Must I have a CAC document to use Bundo?",
-		body1: "",
+		body1:
+			"Bundo is a retail & ecommerce technology company simplifying retail by bridging the gaps between small/medium business owners and regular customers. We are helping to further digitize retail and make it easier for everyday people to buy and sell beyond the challenges of location, visibility, accessibility and resources",
 	},
 	{
 		trigger: "What kind of products can I buy on Bundo?",
-		body1: "",
+		body1:
+			"Bundo is a retail & ecommerce technology company simplifying retail by bridging the gaps between small/medium business owners and regular customers. We are helping to further digitize retail and make it easier for everyday people to buy and sell beyond the challenges of location, visibility, accessibility and resources",
 	},
 	{
 		trigger: "Is Bundo free to use?",
-		body1: "",
+		body1:
+			"Bundo is a retail & ecommerce technology company simplifying retail by bridging the gaps between small/medium business owners and regular customers. We are helping to further digitize retail and make it easier for everyday people to buy and sell beyond the challenges of location, visibility, accessibility and resources",
 	},
 	{
 		trigger: "How can I join the team?",
-		body1: "",
+		body1:
+			"Bundo is a retail & ecommerce technology company simplifying retail by bridging the gaps between small/medium business owners and regular customers. We are helping to further digitize retail and make it easier for everyday people to buy and sell beyond the challenges of location, visibility, accessibility and resources",
 	},
 ];

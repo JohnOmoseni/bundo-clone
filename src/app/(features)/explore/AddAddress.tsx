@@ -35,7 +35,7 @@ const AddAddress = ({
 	};
 
 	return (
-		<div className="row-flex-start bg-secondary-100 w-56 rounded-lg border border-input pl-2 pr-3 py-1 sm:w-[300px]">
+		<div className="row-flex-start bg-secondary-100 w-full gap-3 rounded-lg border border-input pl-2.5 pr-3 py-1 max-w-[500px] mx-auto">
 			<CustomIcon icon={SearchIcon} iconColor={"variant"} className="" />
 
 			<GooglePlacesAutocomplete

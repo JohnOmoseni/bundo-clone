@@ -3,39 +3,37 @@
 import CustomFormField, {
 	FormFieldType,
 } from "@/components/forms/CustomFormField";
+import AddAddress from "./AddAddress";
 import FormWrapper from "@/components/forms/FormWrapper";
 import CustomButton from "@/components/reuseables/CustomButton";
-import { Close, PlusIcon, SearchIcon } from "@/constants/icons";
+import { Close, LinkIcon, PlusIcon, SearchIcon } from "@/constants/icons";
 import { useFormik } from "formik";
-import CustomIcon from "@/components/reuseables/CustomIcon";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import { CoordinatesType } from "@/context/LocationContext";
-import AddAddress from "./AddAddress";
+import { cn, showToast } from "@/lib/utils";
+import { CoordinatesType, useLocation } from "@/context/LocationContext";
 import { v4 as uuidv4 } from "uuid";
 import { createVendorLocation } from "@/server/actions";
 import { animateFn, slideinVariant } from "@/lib/animate";
 import { motion } from "framer-motion";
+import CustomIcon from "@/components/reuseables/CustomIcon";
 
 const AddBusiness = ({ closeModal }: { closeModal: () => void }) => {
 	const [showModalContent, setShowModalContent] = useState<"form" | "address">(
 		"form"
 	);
-	const [addressObject, setAddressObject] = useState<CoordinatesType | null>(
-		null
-	);
-	// const { addressObject, setAddressObject } = useLocation();
+	const { addressObject, setAddressObject } = useLocation();
 
 	return (
 		<motion.div
 			style={{ zIndex: 9999 }}
-			className="fixed inset-0 block h-dvh w-full overflow-hidden bg-black/30 backdrop-blur-sm md:hidden"
-			onClick={() => closeModal()}
+			className="fixed inset-0 block h-dvh w-full overflow-hidden bg-black/30 backdrop-blur-sm"
 		>
 			<motion.div
 				{...animateFn(slideinVariant)}
-				className="flex-column remove-scrollbar absolute inset-0 h-svh w-dvw bg-background overflow-x-clip overflow-y-auto py-5 px-4"
+				className="flex-column remove-scrollbar inset-0 h-svh w-dvw bg-background md:inset-[50%] md:rounded-xl overflow-x-clip overflow-y-auto md:max-h-[540px] md:min-h-[200px] md:max-w-lg 
+			 fixed md:top-[50%] md:left-[50%] z-[9999] md:translate-x-[-50%] md:translate-y-[-50%]
+				"
 				onClick={(e) => e.stopPropagation()}
 				style={{ zIndex: 999 }}
 			>
@@ -48,10 +46,10 @@ const AddBusiness = ({ closeModal }: { closeModal: () => void }) => {
 					/>
 				</div>
 
-				<div className="flex-column gap-4 py-6 px-4 md:px-5">
+				<div className="flex-column gap-4 py-3 px-4">
 					{showModalContent === "form" ? (
 						<>
-							<h2>Add New Business</h2>
+							<h2 className="mt-2">Add New Business</h2>
 
 							<div className="px-1">
 								<AddNewBusinessForm
@@ -100,9 +98,12 @@ const AddNewBusinessForm = ({
 		try {
 			const res = await createVendorLocation(data);
 
-			console.log("RES", res);
+			if (!res?.status) throw new Error(res?.message || "An error occurred");
+
+			showToast("success", "Location created successfully");
 			closeModal();
 		} catch (error: any) {
+			showToast("error", "Error creating location");
 		} finally {
 			setIsLoading(false);
 		}
@@ -192,8 +193,9 @@ const AddNewBusinessForm = ({
 				label="Business Profile Picture"
 				field={{
 					value: values.business_picture,
+					placeholder: "Image Link",
 				}}
-				iconSrc={""}
+				iconSrc={LinkIcon}
 				onChange={handleChange}
 				onBlur={handleBlur}
 				errors={errors}

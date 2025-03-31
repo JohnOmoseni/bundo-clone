@@ -3,10 +3,12 @@
 import CustomButton from "@/components/reuseables/CustomButton";
 import { PlusIcon } from "@/constants/icons";
 import { useEffect, useState } from "react";
-import { LoadScript } from "@react-google-maps/api";
+import { Libraries, LoadScript } from "@react-google-maps/api";
 import FallbackLoader from "@/components/fallback/FallbackLoader";
 import AddBusiness from "./AddBusiness";
 import GoogleMapView from "@/app/_sections/GoogleMapView";
+
+const libraries: Libraries = ["places"];
 
 function Explore({ data }: { data: any }) {
 	const [openModal, setOpenModal] = useState(false);
@@ -33,7 +35,7 @@ function Explore({ data }: { data: any }) {
 
 				<LoadScript
 					googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY!}
-					libraries={["places"]}
+					libraries={libraries}
 					loadingElement={
 						<div className="loader-container">
 							<FallbackLoader loading />

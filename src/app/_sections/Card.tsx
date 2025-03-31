@@ -201,7 +201,7 @@ function VendorCard({
 
 			<div
 				className={cn(
-					"icon-div absolute right-2 top-2 pointer-events-auto transition-colors",
+					"icon-div absolute right-2 top-3 pointer-events-auto transition-colors",
 					isFavorited ? "!bg-foreground-variant" : ""
 				)}
 				onClick={() => handleWishlistClick()}
@@ -222,7 +222,13 @@ function VendorCard({
 					</Link>
 
 					<div className="row-flex-start gap-1.5">
-						<CustomIcon icon={LocationMarker} className="" />
+						<Image
+							src={images.location_image}
+							alt=""
+							width={20}
+							height={20}
+							className="object-cover w-5 h-fit object-center"
+						/>
 						<span className="font-light text-xs">
 							{item?.dist?.calculated
 								? `${item?.dist?.calculated || 0} minutes away from you`

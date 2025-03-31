@@ -21,12 +21,12 @@ function AvatarWrapper({
 			)}
 		>
 			<AvatarImage
-				src={src || (images.profile as any)}
+				src={src || "/images/profile.png"}
 				className="group-hover:scale-105 user-select-none"
 			/>
-			{/* <AvatarFallback className="leading-none mt-px tracking-wider">
+			<AvatarFallback className="leading-none mt-px tracking-wider">
 				{fallback}
-			</AvatarFallback> */}
+			</AvatarFallback>
 		</Avatar>
 	);
 }
