@@ -11,7 +11,7 @@ export default function Markers({
 }) {
 	const position = {
 		lat: businessLocation?.lat,
-		lng: businessLocation?.lng,
+		lng: businessLocation?.long,
 	};
 	return (
 		<MarkerF

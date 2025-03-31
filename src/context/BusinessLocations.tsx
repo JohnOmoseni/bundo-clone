@@ -17,7 +17,7 @@ type BusinessLocationType = {
 	address: string;
 	id: string;
 	lat: number;
-	lng: number;
+	long: number;
 	draggable?: boolean;
 };
 

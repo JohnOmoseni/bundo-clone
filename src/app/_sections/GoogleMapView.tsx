@@ -14,7 +14,7 @@ import { useBusinessLocations } from "@/context/BusinessLocations";
 
 const containerStyle = {
 	width: "100%",
-	height: window.innerWidth * 1,
+	height: window.innerWidth * 0.7,
 };
 
 // Default center
@@ -80,7 +80,7 @@ export default function GoogleMapView({
 					const newLocation = {
 						id: uuidv4(),
 						lat,
-						lng,
+						long: lng,
 						draggable: true,
 						updatedAt: Date.now(),
 						createdAt: Date.now(),
@@ -96,7 +96,7 @@ export default function GoogleMapView({
 					const newLocation = {
 						id: uuidv4(),
 						lat,
-						lng,
+						long: lng,
 						draggable: true,
 						updatedAt: Date.now(),
 						createdAt: Date.now(),
@@ -121,7 +121,7 @@ export default function GoogleMapView({
 							? {
 									...loc,
 									lat: event.latLng!.lat(),
-									lng: event.latLng!.lng(),
+									long: event.latLng!.lng(),
 							  }
 							: loc
 					)
@@ -176,7 +176,7 @@ export default function GoogleMapView({
 			{businessLocationsList.map((location) => (
 				<MarkerF
 					key={location.id}
-					position={{ lat: location.lat, lng: location.lng }}
+					position={{ lat: location.lat, lng: location.long }}
 					draggable={true}
 					onDragEnd={(event) => handleMarkerDragEnd(location.id, event)}
 					icon={{
