@@ -2,6 +2,7 @@
 
 import React from "react";
 import { MarkerF, OverlayView, OverlayViewF } from "@react-google-maps/api";
+import { truncateString } from "@/lib/utils";
 
 export default function Markers({
 	businessLocation,
@@ -10,7 +11,7 @@ export default function Markers({
 }) {
 	const position = {
 		lat: businessLocation?.lat,
-		lng: businessLocation?.long,
+		lng: businessLocation?.lng,
 	};
 	return (
 		<MarkerF
@@ -19,8 +20,8 @@ export default function Markers({
 				url: "/images/map_marker.png",
 				// @ts-ignore
 				scaledSize: {
-					width: 20,
-					height: 20,
+					width: 30,
+					height: 30,
 				},
 			}}
 		>
@@ -28,9 +29,15 @@ export default function Markers({
 				position={position}
 				mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
 			>
-				<div className="row-flex p-1 bg-background rounded-full size-14 clip-circle">
-					<p>{businessLocation?.businessName}</p>
-					<p>{businessLocation?.address}</p>
+				<div className="py-1 px-2 bg-background rounded-md flex-column gap-0.5 clip-circle">
+					<h3 className="text-center text-sm">
+						{businessLocation?.businessName}
+					</h3>
+					<p className="text-center text-xs">
+						{businessLocation?.address
+							? truncateString(businessLocation?.address, 20)
+							: ""}
+					</p>
 				</div>
 			</OverlayViewF>
 		</MarkerF>

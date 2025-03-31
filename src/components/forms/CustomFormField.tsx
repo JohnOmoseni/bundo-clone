@@ -30,6 +30,7 @@ interface CustomProps {
 		type?: string;
 		placeholder?: string;
 		autoComplete?: string;
+		readOnly?: boolean;
 	};
 	isShowPasswordError?: boolean;
 	containerStyles?: string;

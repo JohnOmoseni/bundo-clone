@@ -10,14 +10,15 @@ import {
 } from "react";
 
 type BusinessLocationType = {
-	updatedAt: string;
-	createdAt: string;
-	ttl: number;
+	updatedAt: string | number;
+	createdAt: string | number;
+	ttl?: number;
 	businessName: string;
 	address: string;
 	id: string;
 	lat: number;
-	long: number;
+	lng: number;
+	draggable?: boolean;
 };
 
 type BusinessLocationContextType = {

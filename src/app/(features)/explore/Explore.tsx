@@ -4,6 +4,7 @@ import CustomButton from "@/components/reuseables/CustomButton";
 import { PlusIcon } from "@/constants/icons";
 import { useEffect, useState } from "react";
 import { Libraries, LoadScript } from "@react-google-maps/api";
+import { useBusinessLocations } from "@/context/BusinessLocations";
 import FallbackLoader from "@/components/fallback/FallbackLoader";
 import AddBusiness from "./AddBusiness";
 import GoogleMapView from "@/app/_sections/GoogleMapView";
@@ -12,11 +13,12 @@ const libraries: Libraries = ["places"];
 
 function Explore({ data }: { data: any }) {
 	const [openModal, setOpenModal] = useState(false);
-	const [businessLocations, setBusinessLocations] = useState<any>([]);
+	const { businessLocationsList, setBusinessLocationsList } =
+		useBusinessLocations();
 
 	useEffect(() => {
 		if (!data && data?.length === 0) return;
-		setBusinessLocations(data);
+		setBusinessLocationsList(data);
 	}, [data]);
 
 	return (
@@ -43,7 +45,7 @@ function Explore({ data }: { data: any }) {
 					}
 				>
 					<div className="rounded-xl overflow-hidden overflow-x-clip w-full">
-						<GoogleMapView businessLocations={businessLocations} />
+						<GoogleMapView businessLocations={businessLocationsList || []} />
 					</div>
 				</LoadScript>
 			</div>

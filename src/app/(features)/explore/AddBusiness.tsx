@@ -9,14 +9,15 @@ import CustomButton from "@/components/reuseables/CustomButton";
 import { Close, LinkIcon, PlusIcon, SearchIcon } from "@/constants/icons";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { cn, showToast } from "@/lib/utils";
+import { showToast } from "@/lib/utils";
 import { CoordinatesType, useLocation } from "@/context/LocationContext";
 import { v4 as uuidv4 } from "uuid";
 import { createVendorLocation } from "@/server/actions";
 import { animateFn, slideinVariant } from "@/lib/animate";
 import { motion } from "framer-motion";
+import { AddBusinessSchema } from "@/schema/validation";
 import CustomIcon from "@/components/reuseables/CustomIcon";
+import { useRouter } from "next/navigation";
 
 const AddBusiness = ({ closeModal }: { closeModal: () => void }) => {
 	const [showModalContent, setShowModalContent] = useState<"form" | "address">(
@@ -39,7 +40,11 @@ const AddBusiness = ({ closeModal }: { closeModal: () => void }) => {
 			>
 				<div className="py-3 px-4 shadow-xs flex border-b border-border justify-end">
 					<CustomIcon
-						action={() => closeModal()}
+						action={() =>
+							showModalContent === "address"
+								? setShowModalContent("form")
+								: closeModal()
+						}
 						icon={Close}
 						iconColor={"variant"}
 						className=""
@@ -83,6 +88,7 @@ const AddNewBusinessForm = ({
 	closeModal: () => void;
 }) => {
 	const [isLoading, setIsLoading] = useState(false);
+	const router = useRouter();
 	// @ts-ignore
 	const onSubmit = async (values: any) => {
 		const data = {
@@ -102,6 +108,7 @@ const AddNewBusinessForm = ({
 
 			showToast("success", "Location created successfully");
 			closeModal();
+			router.push("/explore");
 		} catch (error: any) {
 			showToast("error", "Error creating location");
 		} finally {
@@ -112,12 +119,11 @@ const AddNewBusinessForm = ({
 	const { values, errors, touched, handleBlur, handleSubmit, handleChange } =
 		useFormik({
 			initialValues: {
-				address: "",
+				address: addressObject?.name || "",
 				business_name: "",
-				business_address: "",
 				business_picture: "",
 			},
-			validationSchema: "",
+			validationSchema: AddBusinessSchema,
 			onSubmit,
 		});
 
@@ -136,6 +142,8 @@ const AddNewBusinessForm = ({
 				iconSrc={SearchIcon}
 				field={{
 					value: values.address,
+					readOnly: values.address ? false : true,
+					placeholder: "Click on Add Address below to add a new address",
 				}}
 				onChange={handleChange}
 				onBlur={handleBlur}
@@ -157,34 +165,12 @@ const AddNewBusinessForm = ({
 					touched={touched}
 				/>
 
-				{addressObject ? (
-					<div
-						className={cn(
-							"group w-full",
-							errors?.["business_address"] && touched?.["business_address"]
-								? "is-error flex-column gap-1"
-								: ""
-						)}
-					>
-						<Input
-							name={"business_address"}
-							value={addressObject?.label}
-							readOnly
-							className="!i-reset"
-						/>
-
-						<p className="mt-0.5 ml-0.5 transition-sm hidden text-xs font-semibold text-red-500 group-[.is-error]:block group-[.is-error]:animate-in">
-							{errors?.["business_address"] as string}
-						</p>
-					</div>
-				) : (
-					<CustomButton
-						onClick={() => setOpenAddressContent()}
-						icon={PlusIcon}
-						title="Add Address"
-						className="bg-secondary-200 w-full"
-					/>
-				)}
+				<CustomButton
+					onClick={() => setOpenAddressContent()}
+					icon={PlusIcon}
+					title={values.address ? "Change Address" : "Add Address"}
+					className="bg-secondary-200 w-full"
+				/>
 			</div>
 
 			<CustomFormField

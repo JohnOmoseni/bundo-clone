@@ -9,10 +9,12 @@ import {
 } from "@react-google-maps/api";
 import { useLocation } from "@/context/LocationContext";
 import Markers from "./Markers";
+import { v4 as uuidv4 } from "uuid";
+import { useBusinessLocations } from "@/context/BusinessLocations";
 
 const containerStyle = {
 	width: "100%",
-	height: window.innerWidth * 0.4,
+	height: window.innerWidth * 1,
 };
 
 // Default center
@@ -36,6 +38,8 @@ export default function GoogleMapView({
 	const { userLocation, addressObject } = useLocation();
 	const [center, setCenter] = useState(default_center);
 	const [map, setMap] = useState<any>(null);
+	const { businessLocationsList, setBusinessLocationsList } =
+		useBusinessLocations();
 
 	useEffect(() => {
 		if (addressObject && map) {
@@ -49,7 +53,7 @@ export default function GoogleMapView({
 				lng: userLocation.lng,
 			});
 		}
-	}, [addressObject, userLocation]);
+	}, [addressObject, userLocation, map]);
 
 	const onLoad = useCallback(function callback(map: any) {
 		const bounds = new window.google.maps.LatLngBounds(center);
@@ -62,6 +66,71 @@ export default function GoogleMapView({
 		setMap(null);
 	}, []);
 
+	// Handle map click to create new location
+	const handleMapClick = useCallback((event: google.maps.MapMouseEvent) => {
+		if (event.latLng) {
+			const lat = event.latLng.lat();
+			const lng = event.latLng.lng();
+
+			const geocoder = new google.maps.Geocoder();
+			geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+				if (status === google.maps.GeocoderStatus.OK && results?.[0]) {
+					const address = results[0].formatted_address; // Get the formatted address
+
+					const newLocation = {
+						id: uuidv4(),
+						lat,
+						lng,
+						draggable: true,
+						updatedAt: Date.now(),
+						createdAt: Date.now(),
+						ttl: 100,
+						businessName: "",
+						address,
+					};
+
+					console.log("NEW BUSINESS", { lat, lng }, { address }, event);
+					setBusinessLocationsList((prev) => [...prev, newLocation]);
+				} else {
+					// Fallback if geocoding fails
+					const newLocation = {
+						id: uuidv4(),
+						lat,
+						lng,
+						draggable: true,
+						updatedAt: Date.now(),
+						createdAt: Date.now(),
+						ttl: 100,
+						businessName: "",
+						address: "Unknown address",
+					};
+
+					console.log("Geocoding failed", status, event);
+					setBusinessLocationsList((prev) => [...prev, newLocation]);
+				}
+			});
+		}
+	}, []);
+
+	const handleMarkerDragEnd = useCallback(
+		(id: string | number, event: google.maps.MapMouseEvent) => {
+			if (event.latLng) {
+				setBusinessLocationsList((prev) =>
+					prev.map((loc) =>
+						loc.id == id
+							? {
+									...loc,
+									lat: event.latLng!.lat(),
+									lng: event.latLng!.lng(),
+							  }
+							: loc
+					)
+				);
+			}
+		},
+		[]
+	);
+
 	return (
 		<GoogleMap
 			mapContainerStyle={containerStyle}
@@ -70,6 +139,7 @@ export default function GoogleMapView({
 			onLoad={(map) => setMap(map)}
 			onUnmount={onUnmount}
 			options={options}
+			onClick={handleMapClick}
 		>
 			{center ? (
 				<MarkerF
@@ -90,7 +160,9 @@ export default function GoogleMapView({
 						position={center}
 						mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
 					>
-						<div className="row-flex p-1 bg-background rounded-full size-14 clip-circle"></div>
+						<div className="py-1 px-2 bg-background rounded-md flex-column gap-0.5 clip-circle">
+							<h3 className="text-center text-sm">User Location</h3>
+						</div>
 					</OverlayViewF>
 				</MarkerF>
 			) : null}
@@ -100,6 +172,23 @@ export default function GoogleMapView({
 						<Markers key={location?.id} businessLocation={location} />
 				  ))
 				: null}
+
+			{businessLocationsList.map((location) => (
+				<MarkerF
+					key={location.id}
+					position={{ lat: location.lat, lng: location.lng }}
+					draggable={true}
+					onDragEnd={(event) => handleMarkerDragEnd(location.id, event)}
+					icon={{
+						url: "/images/map_marker.png",
+						// @ts-ignore
+						scaledSize: {
+							width: 20,
+							height: 20,
+						},
+					}}
+				/>
+			))}
 		</GoogleMap>
 	);
 	// isLoaded ? (

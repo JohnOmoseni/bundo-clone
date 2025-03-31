@@ -42,7 +42,6 @@ function Card({ item, type, cardContainerStyles }: CardProps) {
 			} favourites successfully`;
 			showToast("success", message);
 		} catch (error: any) {
-			console.error("Error updating wishlist:", error);
 			dispatch(toggleWishlistItem(item.id));
 			let message = `Error ${
 				action === "add" ? "adding to" : "removing from"

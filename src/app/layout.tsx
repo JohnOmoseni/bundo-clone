@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 
 import { Toaster } from "@/components/ui/sonner";
 import LocationProvider from "@/context/LocationContext";
+import BusinessLocationProvider from "@/context/BusinessLocations";
 import NextTopLoader from "nextjs-toploader";
 import ReduxProvider from "@/providers/ReduxProvider";
 import LayoutProvider from "@/providers/LayoutProvider";
@@ -55,12 +56,14 @@ export default function RootLayout({
 				<NextTopLoader />
 				<div className="wrapper">
 					<LocationProvider>
-						<ReduxProvider>
-							<LayoutProvider>{children}</LayoutProvider>
-						</ReduxProvider>
+						<BusinessLocationProvider>
+							<ReduxProvider>
+								<LayoutProvider>{children}</LayoutProvider>
+							</ReduxProvider>
+						</BusinessLocationProvider>
 					</LocationProvider>
 				</div>
-				<Toaster richColors />
+				<Toaster richColors className="py-1" />
 			</body>
 		</html>
 	);
