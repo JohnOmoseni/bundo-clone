@@ -52,7 +52,7 @@ function AccordionTrigger({
 				{iconComponent ? (
 					iconComponent
 				) : (
-					<div className="icon-div shrink-0 bg-secondary rounded-full text-white ">
+					<div className="icon-div shrink-0 bg-secondary-200 rounded-full text-white ">
 						<ChevronUpIcon className="size-5 transition-pointer-events-none transition-transform duration-200" />
 						<ChevronDownIcon className="size-5 transition-pointer-events-none transition-transform duration-200" />
 					</div>

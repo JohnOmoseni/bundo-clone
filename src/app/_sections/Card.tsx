@@ -145,7 +145,7 @@ function Card({ item, type, cardContainerStyles }: CardProps) {
 						<div className="row-flex-btwn gap-4 mt-3.5">
 							<p className="text-2xl md:text-3xl font-semibold ml-1 mt-1 leading-5">
 								<span className="text-lg">₦</span>
-								{formatPrice(item?.actual_price)}
+								{formatPrice(item?.actual_price) || 3000}
 							</p>
 
 							{/* <div className="ml-auto row-flex gap-2.5">

@@ -11,6 +11,9 @@ import { useLocation } from "@/context/LocationContext";
 import Markers from "./Markers";
 import { v4 as uuidv4 } from "uuid";
 import { useBusinessLocations } from "@/context/BusinessLocations";
+import { createVendorLocation } from "@/server/actions";
+import { showToast } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 const containerStyle = {
 	width: "100%",
@@ -40,6 +43,7 @@ export default function GoogleMapView({
 	const [map, setMap] = useState<any>(null);
 	const { businessLocationsList, setBusinessLocationsList } =
 		useBusinessLocations();
+	const router = useRouter();
 
 	useEffect(() => {
 		if (addressObject && map) {
@@ -73,11 +77,13 @@ export default function GoogleMapView({
 			const lng = event.latLng.lng();
 
 			const geocoder = new google.maps.Geocoder();
-			geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-				if (status === google.maps.GeocoderStatus.OK && results?.[0]) {
-					const address = results[0].formatted_address; // Get the formatted address
+			geocoder.geocode({ location: { lat, lng } }, async (results, status) => {
+				let newLocation: any;
 
-					const newLocation = {
+				if (status === google.maps.GeocoderStatus.OK && results?.[0]) {
+					const address = results[0].formatted_address;
+
+					newLocation = {
 						id: uuidv4(),
 						lat,
 						long: lng,
@@ -85,15 +91,13 @@ export default function GoogleMapView({
 						updatedAt: Date.now(),
 						createdAt: Date.now(),
 						ttl: 100,
-						businessName: "",
+						businessName: "New Business",
 						address,
 					};
 
-					console.log("NEW BUSINESS", { lat, lng }, { address }, event);
 					setBusinessLocationsList((prev) => [...prev, newLocation]);
 				} else {
-					// Fallback if geocoding fails
-					const newLocation = {
+					newLocation = {
 						id: uuidv4(),
 						lat,
 						long: lng,
@@ -101,12 +105,33 @@ export default function GoogleMapView({
 						updatedAt: Date.now(),
 						createdAt: Date.now(),
 						ttl: 100,
-						businessName: "",
+						businessName: "New Business",
 						address: "Unknown address",
 					};
 
 					console.log("Geocoding failed", status, event);
 					setBusinessLocationsList((prev) => [...prev, newLocation]);
+				}
+
+				const data = {
+					id: uuidv4(),
+					lat: newLocation?.lat,
+					long: newLocation?.long,
+					businessName: newLocation?.business,
+					businessProfilePicture: "",
+					address: newLocation?.address,
+				};
+
+				try {
+					const res = await createVendorLocation(data);
+
+					if (!res?.status)
+						throw new Error(res?.message || "An error occurred");
+
+					showToast("success", "Location created successfully");
+					router.push("/explore");
+				} catch (error: any) {
+					showToast("error", "Error creating location");
 				}
 			});
 		}
@@ -131,11 +156,13 @@ export default function GoogleMapView({
 		[]
 	);
 
+	console.log("USER LOCATION", userLocation);
+
 	return (
 		<GoogleMap
 			mapContainerStyle={containerStyle}
 			center={center}
-			zoom={12}
+			zoom={9}
 			onLoad={(map) => setMap(map)}
 			onUnmount={onUnmount}
 			options={options}
@@ -148,8 +175,8 @@ export default function GoogleMapView({
 						url: "/images/map_marker.png",
 						// @ts-ignore
 						scaledSize: {
-							width: 20,
-							height: 20,
+							width: 35,
+							height: 35,
 							// equals(other: any) {
 							// 	return other.width === 20 && other.height === 20;
 							// },

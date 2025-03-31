@@ -39,7 +39,15 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
 		<>
 			<AnimatePresence>{openMenu && <Menu />}</AnimatePresence>
 			<Header />
-			<Suspense fallback={<FallbackLoader />}>{children}</Suspense>
+			<Suspense
+				fallback={
+					<div className="loader-container">
+						<FallbackLoader />
+					</div>
+				}
+			>
+				{children}
+			</Suspense>
 			<Footer />
 		</>
 	);

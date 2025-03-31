@@ -73,7 +73,7 @@
 	@apply w-full h-[250px] grid place-items-center bg-background z-10 relative;
 }
 @utility loader-full {
-	@apply w-full h-[calc(100vh-70px)] grid place-items-center bg-background z-10 relative;
+	@apply w-full h-[calc(100vh-70px)] grid place-items-center bg-background z-[999] relative;
 }
 @utility icon-div {
 	@apply cursor-pointer row-flex rounded-full border border-border-100 p-0.5 size-7 bg-background;
