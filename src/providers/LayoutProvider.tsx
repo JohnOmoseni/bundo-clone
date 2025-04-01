@@ -8,10 +8,14 @@ import FallbackLoader from "@/components/fallback/FallbackLoader";
 import Footer from "@/layouts/Footer";
 import Header from "@/layouts/Header";
 import Menu from "@/layouts/Menu";
+import Collection from "@/app/_sections/Collection";
+import GlobalSearch from "@/components/reuseables/GlobalSearch";
 
 function LayoutProvider({ children }: { children: React.ReactNode }) {
 	const dispatch = useAppDispatch();
-	const { openMenu } = useAppSelector((state) => state.appState);
+	const { query, searchResults, openMenu } = useAppSelector(
+		(state) => state.appState
+	);
 
 	useEffect(() => {
 		const updateNetwork = () => {
@@ -39,6 +43,18 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
 		<>
 			<AnimatePresence>{openMenu && <Menu />}</AnimatePresence>
 			<Header />
+			<div className="flex-column gap-3 lg:hidden">
+				<div className="py-1.5 px-3 bg-[#FFFADB] w-full">
+					<h3 className="uppercase font-bold text-center leading-4">
+						Black Friday Deals
+					</h3>
+				</div>
+
+				<div className="px-3 w-full">
+					<GlobalSearch containerStyles="w-full mx-auto" />
+				</div>
+			</div>
+
 			<Suspense
 				fallback={
 					<div className="loader-container">
@@ -46,7 +62,15 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
 					</div>
 				}
 			>
-				{children}
+				{!query ? (
+					children
+				) : (
+					<div className="pt-6 pb-5 px-3.5 min-h-[50vh] sm:px-[4%] flex-column gap-6">
+						<h2>Search Results</h2>
+
+						<Collection data={searchResults} collectionType="Categories" />
+					</div>
+				)}
 			</Suspense>
 			<Footer />
 		</>

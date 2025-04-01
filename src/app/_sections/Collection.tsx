@@ -77,7 +77,7 @@ function Collection({
 					)}
 				>
 					<div className="flex-column">
-						<h2 className="text-xl font-bold text-center">
+						<h2 className="text-xl font-bold text-center italic">
 							{emptyTitle || "No items found"}
 						</h2>
 						<p className="text-center text-sm">{emptySubText || ""}</p>

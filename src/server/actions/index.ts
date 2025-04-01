@@ -16,8 +16,8 @@ type CreateVendorLocationParasms = {
 export const getAllVendors = async ({
 	page = 1,
 	limit = 10,
-	lat = -34.397,
-	lng = 150.644,
+	lat,
+	lng,
 }: {
 	page?: number;
 	limit?: number;

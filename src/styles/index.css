@@ -16,7 +16,7 @@
 		@apply font-bold text-primaryFont;
 	}
 	h2 {
-		@apply font-semibold text-secondaryFont;
+		@apply font-semibold text-secondaryFont leading-[1.2];
 	}
 	h3 {
 		@apply text-[1.05rem] sm:text-lg;

@@ -36,7 +36,7 @@ export default function GoogleMapView({
 	businessLocations: any;
 }) {
 	// const { isLoaded } = useJsApiLoader({
-	// 	googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY || "YOUR_API_KEY",
+	// 	googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
 	// });
 	const { userLocation, addressObject } = useLocation();
 	const [center, setCenter] = useState(default_center);
@@ -155,8 +155,6 @@ export default function GoogleMapView({
 		},
 		[]
 	);
-
-	console.log("USER LOCATION", userLocation);
 
 	return (
 		<GoogleMap

@@ -54,7 +54,9 @@ const AddBusiness = ({ closeModal }: { closeModal: () => void }) => {
 				<div className="flex-column gap-4 py-3 px-4">
 					{showModalContent === "form" ? (
 						<>
-							<h2 className="mt-2">Add New Business</h2>
+							<h3 className="mt-2 text-xl md:text-2xl font-semibold">
+								Add New Business
+							</h3>
 
 							<div className="px-1">
 								<AddNewBusinessForm

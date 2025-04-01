@@ -15,10 +15,6 @@ import beauty_2 from "@/images/beauty-2.png";
 
 import item_1 from "@/images/item_1.png";
 import item_2 from "@/images/item_1.png";
-import item_3 from "@/images/item_1.png";
-import item_4 from "@/images/item_1.png";
-import item_5 from "@/images/item_1.png";
-import item_6 from "@/images/item_1.png";
 import location_image from "@/images/location-image.png";
 
 export default {
@@ -39,9 +35,5 @@ export default {
 
 	item_1,
 	item_2,
-	item_3,
-	item_4,
-	item_5,
-	item_6,
 	location_image,
 };
