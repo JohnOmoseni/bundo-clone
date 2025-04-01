@@ -1,76 +1,59 @@
 "use client";
 
 import CustomButton from "@/components/reuseables/CustomButton";
-import SectionWrapper from "@/layouts/SectionWrapper";
-import { requestToken, onMessageListener } from "@/lib/firebase";
-import { useEffect } from "react";
+import useFcmToken from "@/hooks/useFcmToken";
+import { useState } from "react";
 
 export default function Notifications() {
-	const requestNotificationPermission = async () => {
-		const permission = await Notification.requestPermission();
-		if (permission === "granted") {
-			const token = await requestToken();
-			console.log("FCM Token:", token);
-		} else {
-			console.log("Notification permission denied");
+	const { token, notificationPermissionStatus } = useFcmToken();
+	const [isLoading, setIsLoading] = useState(false);
+
+	const handleTestNotification = async () => {
+		setIsLoading(true);
+		console.log("TOKEN", token);
+		try {
+			const response = await fetch("/send-notification", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					token: token,
+					title: "Test Notification - A new location has been added!",
+					message: "This is a test notification",
+					link: "/explore",
+				}),
+			});
+
+			const data = await response.json();
+			console.log(data);
+		} catch (err: any) {
+		} finally {
+			setIsLoading(false);
 		}
 	};
-
-	useEffect(() => {
-		if ("serviceWorker" in navigator) {
-			navigator.serviceWorker
-				.register("/firebase-sw.js")
-				.then((registration) => {
-					console.log("Service Worker registered:", registration);
-				})
-				.catch((error) => {
-					console.error("Service Worker registration failed:", error);
-				});
-		}
-	}, []);
-
-	const handleNotification = async () => {
-		const permission = await Notification.requestPermission();
-		if (permission === "granted") {
-			const token = await requestToken();
-			if (token) {
-				new Notification("Location Update", {
-					body: "A new location has been added!",
-					icon: "/images/map_marker.png",
-				});
-			} else {
-				console.log("No FCM token available");
-				new Notification("Location Update", {
-					body: "A new location has been added!",
-					icon: "/images/map_marker.png",
-				});
-			}
-		} else {
-			console.log("Notification permission denied");
-		}
-	};
-
-	useEffect(() => {
-		// requestNotificationPermission();
-
-		onMessageListener().then((payload) => {
-			console.log("Foreground Notification:", payload);
-		});
-	}, []);
 
 	return (
-		<SectionWrapper>
-			<div className="flex-column gap-6">
-				<h3>Notifications</h3>
+		<div className="py-6 px-3.5 md:py-12 min-h-[25vh] sm:px-[4%]">
+			<h2>Notifications - Firebase Cloud Messaging</h2>
 
-				<div className="grid place-items-center">
-					<CustomButton
-						title="	Send Notification"
-						onClick={handleNotification}
-						className="bg-secondary-200 min-w-[160px]"
-					/>
-				</div>
+			{notificationPermissionStatus === "granted" ? (
+				<p>Permission to receive notifications has been granted.</p>
+			) : notificationPermissionStatus !== null ? (
+				<p>
+					You have not granted permission to receive notifications. Please
+					enable notifications in your browser settings.
+				</p>
+			) : null}
+
+			<div className="grid place-items-center mt-8">
+				<CustomButton
+					title="	Send Notification"
+					onClick={handleTestNotification}
+					isLoading={isLoading}
+					className="bg-secondary-200 min-w-[160px]"
+				/>
 			</div>
-		</SectionWrapper>
+		</div>
 	);
 }

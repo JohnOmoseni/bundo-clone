@@ -16,6 +16,7 @@ type CollectionProps = {
 	hasDifferentContainerStyles?: boolean;
 	urlParamName?: string;
 	totalPages?: number;
+	showDiscount?: boolean;
 	ref?: RefObject<HTMLUListElement | null>;
 };
 
@@ -30,6 +31,7 @@ function Collection({
 	collectionType,
 	hasDifferentContainerStyles,
 	ref,
+	showDiscount,
 }: CollectionProps) {
 	return (
 		<>
@@ -56,6 +58,7 @@ function Collection({
 
 						return (
 							<Card
+								showDiscount={showDiscount}
 								cardContainerStyles={cardContainerStyles}
 								item={item}
 								key={idx}

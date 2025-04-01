@@ -12,7 +12,7 @@ function FeaturedItems({ featuredProducts }: { featuredProducts: any }) {
 	return (
 		<div className="flex-column gap-6">
 			<div className="row-flex-btwn gap-3">
-				<h2>Featured Items</h2>
+				<h2>Featured Products</h2>
 
 				<Link
 					href="#"
@@ -71,6 +71,7 @@ export function BiggestSales() {
 						{items.map((item, idx) => {
 							return (
 								<Card
+									showDiscount
 									item={item}
 									key={idx}
 									type={"vendors"}
@@ -91,6 +92,26 @@ export function ExploreVendors() {
 			<h2>Explore some of our Vendors</h2>
 
 			<Collection data={items} collectionType="VendorType" />
+		</div>
+	);
+}
+
+export function ElevateJewellery() {
+	return (
+		<div className="flex-column gap-6">
+			<h2>Elevate your Jewellery</h2>
+
+			<Collection data={items} collectionType="Categories" />
+		</div>
+	);
+}
+
+export function BestSellers() {
+	return (
+		<div className="flex-column gap-6">
+			<h2>Best Sellers in Beauty & Personal Care</h2>
+
+			<Collection data={items} collectionType="Categories" />
 		</div>
 	);
 }

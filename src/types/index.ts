@@ -10,6 +10,17 @@ export type User = {
 	isVerified: boolean;
 };
 
+export type BusinessLocationType = {
+	updatedAt: string;
+	createdAt: string;
+	ttl: number;
+	businessName: string;
+	address: string;
+	id: string;
+	lat: number;
+	long: number;
+};
+
 export type OptionType = {
 	label: string;
 	value: string;

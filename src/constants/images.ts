@@ -8,6 +8,11 @@ import deals_image_3 from "@/images/deals_image_3.png";
 import deals_image_4 from "@/images/deals_image_4.png";
 import deals_image_5 from "@/images/deals_image_5.png";
 
+import jewel_1 from "@/images/jewel-1.png";
+import jewel_2 from "@/images/jewel-2.png";
+import beauty_1 from "@/images/beauty-1.png";
+import beauty_2 from "@/images/beauty-2.png";
+
 import item_1 from "@/images/item_1.png";
 import item_2 from "@/images/item_1.png";
 import item_3 from "@/images/item_1.png";
@@ -26,6 +31,11 @@ export default {
 	deals_image_3,
 	deals_image_4,
 	deals_image_5,
+
+	jewel_1,
+	jewel_2,
+	beauty_1,
+	beauty_2,
 
 	item_1,
 	item_2,

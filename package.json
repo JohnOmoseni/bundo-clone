@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -25,6 +25,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^11.5.0",
+    "firebase-admin": "^13.2.0",
     "formik": "^2.4.6",
     "framer-motion": "^12.6.2",
     "js-cookie": "^3.0.5",

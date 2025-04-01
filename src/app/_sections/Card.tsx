@@ -23,9 +23,10 @@ type CardProps = {
 	item: any;
 	cardContainerStyles?: string;
 	type: "vendors" | "category" | "All";
+	showDiscount?: boolean;
 };
 
-function Card({ item, type, cardContainerStyles }: CardProps) {
+function Card({ item, type, cardContainerStyles, showDiscount }: CardProps) {
 	const dispatch = useAppDispatch();
 
 	const wishlist = useAppSelector((state: any) => state.wishlist.items);
@@ -148,23 +149,25 @@ function Card({ item, type, cardContainerStyles }: CardProps) {
 								{formatPrice(item?.actual_price) || 3000}
 							</p>
 
-							{/* <div className="ml-auto row-flex gap-2.5">
-								<span className="font-semibold text-sm text-grey line-through">
-									₦2,500
-								</span>
+							{showDiscount && (
+								<div className="ml-auto row-flex gap-2.5">
+									<span className="font-semibold text-sm text-grey line-through">
+										₦2,500
+									</span>
 
-								<StatusBadge
-									status="Success"
-									value={
-										item?.discount && (
-											<span className="font-semibold text-xs text-white">
-												{item.discount} off
-											</span>
-										)
-									}
-									containerStyles=""
-								/>
-							</div> */}
+									<StatusBadge
+										status="Success"
+										value={
+											item?.discount && (
+												<span className="font-semibold text-xs text-white">
+													{item.discount} off
+												</span>
+											)
+										}
+										containerStyles=""
+									/>
+								</div>
+							)}
 						</div>
 					</div>
 				</>

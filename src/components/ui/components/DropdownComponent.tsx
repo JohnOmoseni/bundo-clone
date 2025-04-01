@@ -44,7 +44,7 @@ export function DropdownComponent({
 								</Fragment>
 							))}
 						{list.length === 0 && (
-							<DropdownMenuItem className="dropdown-item">
+							<DropdownMenuItem className="dropdown-item text-sm py-0.5 italic">
 								No items
 							</DropdownMenuItem>
 						)}

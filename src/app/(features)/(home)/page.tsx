@@ -1,7 +1,12 @@
 import SectionWrapper from "@/layouts/SectionWrapper";
 import AmazingDeals from "./Deals";
 import FAQ from "./FAQs";
-import FeaturedItems, { BiggestSales, ExploreVendors } from "./FeaturedItems";
+import FeaturedItems, {
+	BestSellers,
+	BiggestSales,
+	ElevateJewellery,
+	ExploreVendors,
+} from "./FeaturedItems";
 import GlobalSearch from "@/components/reuseables/GlobalSearch";
 import { getAllBusinessLocations, getAllVendors } from "@/server/actions";
 import { Suspense } from "react";
@@ -34,6 +39,8 @@ async function Home() {
 					</Suspense>
 					<BiggestSales />
 					<ExploreVendors />
+					<ElevateJewellery />
+					<BestSellers />
 				</div>
 			</SectionWrapper>
 			<SectionWrapper containerStyles="min-h-auto mb-9 md:mb-12">

@@ -97,7 +97,12 @@ export const categories = [
 		dropdown: [{ label: "Electronics", value: "electronics" }],
 	},
 ];
-export const helpList: any = [];
+export const helpList: any = [
+	{
+		label: "Support@bundo.app",
+		value: "support@bundo.app",
+	},
+];
 
 export const locations = [
 	{
@@ -147,102 +152,17 @@ export const items = [
 		minutes_away: 0,
 	},
 	{
-		_id: "67450291da5924906013d498",
-		vendorId: "6744741577b0de87ce7fef48",
-		name: "Estate Market",
+		_id: "67450291da5924906013d444",
+		vendorId: "6744741577b0de87ce7fef46",
+		name: "Brown Summer Top",
 		categories: ["category 1", "category 2", "category 3"],
 		description: "some description",
 		address: "20 Remmington Drive, Ottawa",
-		business_type: "products",
-		products_services: [],
 		noOfLikes: 0,
-		location: {
-			coordinates: [0, 0],
-			type: "Point",
-		},
-		total_ratings: 0,
-		visibility: true,
-		total_reviews: 0,
-		reviews: [],
+		total_ratings: 5,
+		total_reviews: 121,
 		createdAt: "2024-11-25T23:04:49.474Z",
-		plan: "67450291da5924906013d49c",
-		business_profile_picture:
-			"https://tse4.mm.bing.net/th?id=OIP.v0k8EPA6XrsIV7kRzVfLJQHaLH&w=474&h=474&c=7",
-		dist: {
-			calculated: 0,
-		},
-		vendor_status: [
-			{
-				_id: "6744741577b0de87ce7fef48",
-				status: "VERIFIED",
-			},
-		],
-		minutes_away: 0,
-	},
-	{
-		_id: "67450291da5924906013d498",
-		vendorId: "6744741577b0de87ce7fef48",
-		name: "Estate Market",
-		categories: ["category 1", "category 2", "category 3"],
-		description: "some description",
-		address: "20 Remmington Drive, Ottawa",
-		business_type: "products",
-		products_services: [],
-		noOfLikes: 0,
-		location: {
-			coordinates: [0, 0],
-			type: "Point",
-		},
-		total_ratings: 0,
-		visibility: true,
-		total_reviews: 0,
-		reviews: [],
-		createdAt: "2024-11-25T23:04:49.474Z",
-		plan: "67450291da5924906013d49c",
-		business_profile_picture:
-			"https://tse4.mm.bing.net/th?id=OIP.v0k8EPA6XrsIV7kRzVfLJQHaLH&w=474&h=474&c=7",
-		dist: {
-			calculated: 0,
-		},
-		vendor_status: [
-			{
-				_id: "6744741577b0de87ce7fef48",
-				status: "VERIFIED",
-			},
-		],
-		minutes_away: 0,
-	},
-	{
-		_id: "67450291da5924906013d498",
-		vendorId: "6744741577b0de87ce7fef48",
-		name: "Estate Market",
-		categories: ["category 1", "category 2", "category 3"],
-		description: "some description",
-		address: "20 Remmington Drive, Ottawa",
-		business_type: "products",
-		products_services: [],
-		noOfLikes: 0,
-		location: {
-			coordinates: [0, 0],
-			type: "Point",
-		},
-		total_ratings: 0,
-		visibility: true,
-		total_reviews: 0,
-		reviews: [],
-		createdAt: "2024-11-25T23:04:49.474Z",
-		plan: "67450291da5924906013d49c",
-		business_profile_picture:
-			"https://tse4.mm.bing.net/th?id=OIP.v0k8EPA6XrsIV7kRzVfLJQHaLH&w=474&h=474&c=7",
-		dist: {
-			calculated: 0,
-		},
-		vendor_status: [
-			{
-				_id: "6744741577b0de87ce7fef48",
-				status: "VERIFIED",
-			},
-		],
+		business_profile_picture: images.beauty_1,
 		minutes_away: 0,
 	},
 ];
