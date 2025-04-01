@@ -20,8 +20,6 @@
 # production
 /build
 
-/service_key
-
 # misc
 .DS_Store
 *.pem
