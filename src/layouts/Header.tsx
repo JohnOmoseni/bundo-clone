@@ -93,7 +93,7 @@ function Header() {
 				</div>
 
 				<div className="hidden lg:block">
-					<GlobalSearch onChange={() => {}} />
+					<GlobalSearch />
 				</div>
 
 				<div className="hidden lg:row-flex gap-2">
